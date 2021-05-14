@@ -19,7 +19,7 @@ and [Event Streams](###Event Streams) and the following operations on
 top of them:
 
 Behaviors
-- [ ] Create new behaviors
+- [x] Create new behaviors
 - [ ] Retrieve the current value of a behavior
 - [ ] Convert a behavior into an event stream
 

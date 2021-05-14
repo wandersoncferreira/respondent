@@ -124,6 +124,10 @@ existing core.async channel as the source for the new stream."
   (#?(:clj deref :cljs -deref) [_] (f)))
 
 
+(defmacro behavior
+  [& body]
+  `(Behavior. #(do ~@body)))
+
 
 #?(:cljs
    (defn generate-exports
