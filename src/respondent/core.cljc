@@ -20,7 +20,7 @@
   (filter [s pred]
     "Returns a new stream containing the items from s for which pred returns true")
   (flatmap [s f]
-    "Takes a function f from values in s to a new EventStream. 
+    "Takes a function f from values in s to a new EventStream.
 Returns an Event Stream containing values from all underlying streams combined.")
   (deliver [s value]
     "Delivers a value to the stream s")
@@ -36,10 +36,14 @@ Returns a token the subscriber can use to cancel the subscription."))
   (dispose [tk]
     "Called when the subscriber isn't interested in receiving more items."))
 
+
+;;; Token implementation
+
 (deftype Token [ch]
   IToken
   (dispose [_]
     (close! ch)))
+
 
 ;;; Event Stream implementation
 
@@ -72,6 +76,7 @@ Returns a token the subscriber can use to cancel the subscription."))
               (close! channel)))
       (go (>! channel value))))
   (completed? [_] @completed)
+
   IObservable
   (subscribe [this f]
     (let [out (chan)]
@@ -85,7 +90,7 @@ Returns a token the subscriber can use to cancel the subscription."))
 
 (defn event-stream
   "Created and returns a new event stream. You can optionally provide an
-existing core.async channel as the source for the new stream."
+  existing core.async channel as the source for the new stream."
   ([]
    (event-stream (chan)))
   ([ch]
@@ -94,7 +99,7 @@ existing core.async channel as the source for the new stream."
      (EventStream. ch multiple completed))))
 
 
-;;; Implement Behavior
+;;; Behavior implementation
 
 (defn from-interval
   "Creates and returns a new event stream which emits values at the given interval.
@@ -115,7 +120,6 @@ existing core.async channel as the source for the new stream."
          (recur (timeout msec) (succ value))))
      es)))
 
-
 (deftype Behavior [f]
   IBehavior
   (sample [_ interval]
@@ -123,11 +127,12 @@ existing core.async channel as the source for the new stream."
   IDeref
   (#?(:clj deref :cljs -deref) [_] (f)))
 
-
 (defmacro behavior
   [& body]
   `(Behavior. #(do ~@body)))
 
+
+;;; Export functions to node library
 
 #?(:cljs
    (defn generate-exports
