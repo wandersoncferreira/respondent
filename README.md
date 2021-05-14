@@ -36,8 +36,14 @@ and ClojureScript.
 
 ### Behaviors
 
+Behaviors represent continuous, time-varying values such as time or a
+mouse position behavior.
+
 
 ### Event Streams
+
+Event streams, on the other hand, represent discrete occurrences at a
+point in time T, such as key presses.
 
 
 # Development
