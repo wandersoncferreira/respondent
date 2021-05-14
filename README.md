@@ -2,20 +2,17 @@
 
 Reading the [Clojure Reactive
 Programming](https://www.packtpub.com/product/clojure-reactive-programming/9781783986668)
-book, we found in Chapter 5 an minimal implementation of a
+book, the Chapter 5 has a minimal implementation for a
 **Compositional Event Stream (CES)** using core.async, however the code is a bit
 outdated e.g. still using `cljx` annotations, deprecated functions
-from core.async.
-
-And I also wanted to use Clojure CLI instead of Leiningen in this
-project.
-
+from core.async and I want to use Clojure CLI instead of Leiningen for
+this project.
 
 Therefore this repository is a simple translation/updated
-implementation of what is presented in the Book.
+implementation of what is presented in the book.
 
 The goals for this framework is to represent [Behaviors](###Behaviors)
-and [Event Streams](###Event Streams) and the following operations on
+and [Event Streams](###Event_Streams) and the following operations on
 top of them:
 
 Behaviors
