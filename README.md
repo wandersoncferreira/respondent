@@ -73,11 +73,11 @@ node
 ### List of changes from original
 
 
-| original lib         | updated     | why                                    |
-|----------------------|-------------|----------------------------------------|
-| leiningen            | deps.edn    | I am moving all my work to Clojure CLI |
-| cljsbuild & figwheel | shadow-cljs | Build and hot-reload Clojurescript     |
-| deftype              | defrecord   | Explain more of why here               |
-| core.async/map>      | transducer  | Deprecated function                    |
-| core.async/filter>   | transducer  | Deprecated function                    |
+| original lib         | updated     | why                                                                                                                              |
+|----------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------|
+| leiningen            | deps.edn    | I am moving all my work to Clojure CLI                                                                                           |
+| cljsbuild & figwheel | shadow-cljs | Build and hot-reload Clojurescript                                                                                               |
+| deftype              | defrecord   | Based on [this](https://clojure.org/reference/datatypes#_why_have_both_deftype_and_defrecord) I decided to leave deftypes around |
+| core.async/map>      | transducer  | Deprecated function                                                                                                              |
+| core.async/filter>   | transducer  | Deprecated function                                                                                                              |
 
