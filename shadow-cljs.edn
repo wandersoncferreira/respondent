@@ -1,0 +1,5 @@
+{:deps true
+ :builds
+ {:respondent {:target :node-library
+               :output-to "out/respondent/respondent.js"
+               :exports-fn respondent.core/generate-exports}}}
