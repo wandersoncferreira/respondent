@@ -11,8 +11,8 @@ this project.
 Therefore this repository is a simple translation/updated
 implementation of what is presented in the book.
 
-The goals for this framework is to represent [Behaviors](###Behaviors)
-and [Event Streams](###Event_Streams) and the following operations on
+The goals for this framework is to represent [Behaviors](#behaviors)
+and [Event Streams](#event-streams) and the following operations on
 top of them:
 
 Behaviors
