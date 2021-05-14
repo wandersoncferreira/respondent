@@ -4,8 +4,11 @@ Reading the [Clojure Reactive
 Programming](https://www.packtpub.com/product/clojure-reactive-programming/9781783986668)
 book, we found in Chapter 5 an minimal implementation of a
 **Compositional Event Stream (CES)** using core.async, however the code is a bit
-outdated e.g. still using `cljx` annotations. And I also wanted to use
-Clojure CLI instead of Leiningen in this project.
+outdated e.g. still using `cljx` annotations, deprecated functions
+from core.async.
+
+And I also wanted to use Clojure CLI instead of Leiningen in this
+project.
 
 
 Therefore this repository is a simple translation/updated
@@ -65,3 +68,15 @@ node
 >> Node REPL
 >> var x = require('./respondent')
 ```
+
+
+### List of changes from original
+
+
+| original lib         | updated     | why                                    |
+|----------------------|-------------|----------------------------------------|
+| leiningen            | deps.edn    | I am moving all my work to Clojure CLI |
+| cljsbuild & figwheel | shadow-cljs | Build and hot-reload Clojurescript     |
+| deftype              | defrecord   | Explain more of why here               |
+| core.async/map>      | transducers | Deprecated function                    |
+
