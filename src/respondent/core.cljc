@@ -1,5 +1,5 @@
 (ns respondent.core
-  (:refer-clojure :exclude [filter map deliver take])
+  (:refer-clojure :exclude [filter map deliver take zip])
   (:require #?@(:clj [[clojure.core.async :as async
                        :refer [go go-loop chan <! >! timeout close! mult tap untap]]]
                 :cljs [[cljs.core.async :as async
@@ -82,7 +82,9 @@ Returns a token the subscriber can use to cancel the subscription."))
           out-s1 (chan)
           out-s2 (chan)]
       (tap multiple out-s1)
-      (tap (.multiple es) out-s2)
+      (tap #?(:clj (.multiple es)
+              :cljs (.-multiple es))
+           out-s2)
       (go-loop []
         (let [item-s1 (<! out-s1)
               item-s2 (<! out-s2)
@@ -169,6 +171,7 @@ Returns a token the subscriber can use to cancel the subscription."))
           :flatmap flatmap
           :deliver deliver
           :completed? completed?
+          :from_interval from-interval
           :sample sample
           :dispose dispose
           :behavior behavior}))
