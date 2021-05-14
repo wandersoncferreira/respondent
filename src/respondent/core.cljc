@@ -27,7 +27,9 @@ Returns an Event Stream containing values from all underlying streams combined."
   (completed? [s]
     "Returns true if this stream has stopped emitting values. False otherwise.")
   (take [s n]
-    "Takes n items from the underlying event stream after which it will stop emitting items."))
+    "Takes n items from the underlying event stream after which it will stop emitting items.")
+  (zip [s es]
+    "Zips together items emitted from two different event streams into a vector"))
 
 (defprotocol IObservable
   (subscribe [obs f]
@@ -75,6 +77,20 @@ Returns a token the subscriber can use to cancel the subscription."))
     (let [out (chan 1 (clojure.core/take n))]
       (tap multiple out)
       (event-stream out)))
+  (zip [s es]
+    (let [zipped-es (event-stream)
+          out-s1 (chan)
+          out-s2 (chan)]
+      (tap multiple out-s1)
+      (tap (.multiple es) out-s2)
+      (go-loop []
+        (let [item-s1 (<! out-s1)
+              item-s2 (<! out-s2)
+              zipped-value [item-s1 item-s2]]
+          (when-not (empty? zipped-value)
+            (deliver zipped-es zipped-value)
+            (recur))))
+      zipped-es))
   (deliver [_ value]
     (if (= value ::complete)
       (do (reset! completed true)
@@ -149,6 +165,7 @@ Returns a token the subscriber can use to cancel the subscription."))
           :map map
           :filter filter
           :take take
+          :zip zip
           :flatmap flatmap
           :deliver deliver
           :completed? completed?
