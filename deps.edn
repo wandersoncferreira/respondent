@@ -6,7 +6,10 @@
 
  :aliases
  {:dev
-  {clj-commons/pomegranate {:mvn/version "1.2.1"}}
+  {:extra-deps {cider/cider-nrepl {:mvn/version "0.27.0-SNAPSHOT"}
+                refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
+                clj-commons/pomegranate {:mvn/version "1.2.1"}}
+   :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}
 
   :jar
   {:extra-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
