@@ -1,5 +1,5 @@
 (ns respondent.core
-  (:refer-clojure :exclude [filter map deliver])
+  (:refer-clojure :exclude [filter map deliver take])
   (:require #?@(:clj [[clojure.core.async :as async
                        :refer [go go-loop chan <! >! timeout close! mult tap untap]]]
                 :cljs [[cljs.core.async :as async
@@ -25,7 +25,9 @@ Returns an Event Stream containing values from all underlying streams combined."
   (deliver [s value]
     "Delivers a value to the stream s")
   (completed? [s]
-    "Returns true if this stream has stopped emitting values. False otherwise."))
+    "Returns true if this stream has stopped emitting values. False otherwise.")
+  (take [s n]
+    "Takes n items from the underlying event stream after which it will stop emitting items."))
 
 (defprotocol IObservable
   (subscribe [obs f]
@@ -69,6 +71,10 @@ Returns a token the subscriber can use to cancel the subscription."))
             (subscribe mb (fn [b] (deliver es b)))
             (recur))))
       es))
+  (take [_ n]
+    (let [out (chan 1 (clojure.core/take n))]
+      (tap multiple out)
+      (event-stream out)))
   (deliver [_ value]
     (if (= value ::complete)
       (do (reset! completed true)
@@ -87,6 +93,7 @@ Returns a token the subscriber can use to cancel the subscription."))
             (f value)
             (recur))))
       (Token. out))))
+
 
 (defn event-stream
   "Created and returns a new event stream. You can optionally provide an
@@ -141,6 +148,7 @@ Returns a token the subscriber can use to cancel the subscription."))
           :subscribe subscribe
           :map map
           :filter filter
+          :take take
           :flatmap flatmap
           :deliver deliver
           :completed? completed?
