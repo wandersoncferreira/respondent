@@ -20,15 +20,15 @@ top of them:
 
 Behaviors
 - [x] Create new behaviors
-- [ ] Retrieve the current value of a behavior
-- [ ] Convert a behavior into an event stream
+- [x] Retrieve the current value of a behavior
+- [x] Convert a behavior into an event stream
 
 Event streams
-- [ ] Push/deliver a value down the stream
-- [ ] Create a stream from a given interval
-- [ ] Transform the stream with the `map` and `filter` operations
-- [ ] Combine streams with `flatmap`
-- [ ] Subscribe to a stream
+- [x] Push/deliver a value down the stream
+- [x] Create a stream from a given interval
+- [x] Transform the stream with the `map` and `filter` operations
+- [x] Combine streams with `flatmap`
+- [x] Subscribe to a stream
 
 As extra requirement we want to build a solution that works in Clojure
 and ClojureScript.

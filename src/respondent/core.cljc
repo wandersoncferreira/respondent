@@ -138,4 +138,6 @@ existing core.async channel as the source for the new stream."
           :filter filter
           :flatmap flatmap
           :deliver deliver
-          :completed? completed?}))
+          :completed? completed?
+          :sample sample
+          :dispose dispose}))
