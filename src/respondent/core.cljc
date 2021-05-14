@@ -127,9 +127,9 @@ Returns a token the subscriber can use to cancel the subscription."))
   IDeref
   (#?(:clj deref :cljs -deref) [_] (f)))
 
-(defmacro behavior
-  [& body]
-  `(Behavior. #(do ~@body)))
+(defn behavior
+  [f]
+  (Behavior. (fn [] (f))))
 
 
 ;;; Export functions to node library
@@ -137,7 +137,7 @@ Returns a token the subscriber can use to cancel the subscription."))
 #?(:cljs
    (defn generate-exports
      []
-     #js {:event-stream event-stream
+     #js {:event_stream event-stream
           :subscribe subscribe
           :map map
           :filter filter
@@ -145,4 +145,5 @@ Returns a token the subscriber can use to cancel the subscription."))
           :deliver deliver
           :completed? completed?
           :sample sample
-          :dispose dispose}))
+          :dispose dispose
+          :behavior behavior}))

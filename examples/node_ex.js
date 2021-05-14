@@ -17,6 +17,9 @@ x.subscribe(es2, function (event) {
 
 x.deliver(es1, 20);
 
-// behavior TODO: export behavior macro correctly using shadow-cljs
-// var timeBehavior = x.behavior(Date.now());
-// console.log("Time behavior: ", timeBehavior);
+// behavior
+var timeBehavior = x.behavior(Date.now);
+var timeStreams = x.sample(timeBehavior, 1000);
+var token = x.subscribe(timeStreams, function (event) {
+  console.log("Time is ", event);
+});
