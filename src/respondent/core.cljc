@@ -1,11 +1,9 @@
 (ns respondent.core
   (:refer-clojure :exclude [filter map deliver])
   (:require #?@(:clj [[clojure.core.async :as async
-                       :refer [go go-loop chan <! >! timeout
-                               map> filter> close! mult tap untap]]]
+                       :refer [go go-loop chan <! >! timeout close! mult tap untap]]]
                 :cljs [[cljs.core.async :as async
-                        :refer [chan <! >! timeout map> filter>
-                                close! mult tap untap]]]))
+                        :refer [chan <! >! timeout close! mult tap untap]]]))
   #?(:cljs (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
   (:import
    #?@(:clj
@@ -50,11 +48,11 @@ Returns a token the subscriber can use to cancel the subscription."))
 (deftype EventStream [channel multiple completed]
   IEventStream
   (map [_ f]
-    (let [out (map> f (chan))]
+    (let [out (chan 1 (clojure.core/map f))]
       (tap multiple out)
       (event-stream out)))
   (filter [_ pred]
-    (let [out (filter> pred (chan))]
+    (let [out (chan 1 (clojure.core/filter pred))]
       (tap multiple out)
       (event-stream out)))
   (flatmap [_ f]

@@ -78,5 +78,6 @@ node
 | leiningen            | deps.edn    | I am moving all my work to Clojure CLI |
 | cljsbuild & figwheel | shadow-cljs | Build and hot-reload Clojurescript     |
 | deftype              | defrecord   | Explain more of why here               |
-| core.async/map>      | transducers | Deprecated function                    |
+| core.async/map>      | transducer  | Deprecated function                    |
+| core.async/filter>   | transducer  | Deprecated function                    |
 
